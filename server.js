@@ -12,7 +12,8 @@ app.get("/", (req, res) => {
 // GREETINGS
 app.get("/greeting/:name", (req, res) => {
     // res.send("Hello, stranger")
-    name = req.params.name 
+    //don't forget const or let, it remove the strikethrough cause name has some built in abilities in js
+    const name = req.params.name 
     res.send(`Wow! Hello there, ${name}! It's so great to see you!`)
 })
 
@@ -23,19 +24,18 @@ app.get("/tip/:total/:percentage", (req, res) => {
 
     res.send(`${tipPercentage}`)    
 })
-
+//i'd keep my data sets outside of the routes for cleaner code
+const magicEightResp = [
+    "It is certain", "It is decidedly so", "Without a doubt", "Yes definitely","You may rely on it", "As I see it yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later","Better not tell you now", "Cannot predict now", "Concentrate and ask again","Don't count on it", "My reply is no", "My sources say no","Outlook not so good", "Very doubtful"
+    ]
 // MAGIC 8 BALL
 app.get("/magic/:question", (req, res) => {
-    // const question = req.params.question
-    // let randomResp = Math.floor(Math.random() * (magicEightResp.length))
-
-    const magicEightResp = [
-        "It is certain", "It is decidedly so", "Without a doubt", "Yes definitely","You may rely on it", "As I see it yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later","Better not tell you now", "Cannot predict now", "Concentrate and ask again","Don't count on it", "My reply is no", "My sources say no","Outlook not so good", "Very doubtful"
-        ]
-    
+    // i like how you wrote out variables to use and was curious as to why you commented them out, they work great. I is a good technique to break up your code into variables so that you can change just the variable for ease.
+    const question = req.params.question
+    let randomResp = Math.floor(Math.random() * (magicEightResp.length))
     res.send(`
-        <h1>You asked: <br>${req.params.question}.</br>  
-        <br>Let's see your future: <br>${magicEightResp[Math.floor(Math.random() * (magicEightResp.length))]}</br></br></h1>
+        <h1>You asked: <br>${question}.</br>  
+        <br>Let's see your future: <br>${magicEightResp[randomResp]}</br></br></h1>
         `)
 })
 
